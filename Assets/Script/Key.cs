@@ -7,18 +7,8 @@ public class Key : MonoBehaviour
 {
     public TextMeshProUGUI alphabet;
 
-    public void KeyPress()
+    public string KeyPress()
     {
-        Debug.Log(alphabet.text);
+        return alphabet.text;
     }
-
-    public void EnterKey()
-    {
-        Debug.Log("Enter");
-    }
-
-    public void DeleteKey()
-    {
-        Debug.Log("Delete");
-    } 
 }
