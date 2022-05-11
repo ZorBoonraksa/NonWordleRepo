@@ -6,15 +6,20 @@ using TMPro;
 public class Key : MonoBehaviour
 {
     public TextMeshProUGUI alphabet;
+    public OverallData overallData;
 
     public void KeyPress()
     {
-        Debug.Log(alphabet.text);
-    }
-
-    public void EnterKey()
-    {
-        Debug.Log("Enter");
+        if(overallData.guess.Length < overallData.answer.Length)
+        {
+            overallData.guess += alphabet.text;
+            if(overallData.guess.Length == overallData.answer.Length)
+            {
+                overallData.isEqualLength = true;
+            }
+        }else{
+            return;
+        }
     }
 
     public void DeleteKey()

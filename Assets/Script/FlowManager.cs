@@ -5,35 +5,42 @@ using UnityEngine.UI;
 
 public class FlowManager : MonoBehaviour
 {
-    public GridLayoutGroup gridLayoutGroup;
-    public GameObject ansBox;
-    int rowAmount = 6;
+    public GridManager gridLayOut;
+    public OverallData overallData;
     int wordLength;
-    int minLength = 4;
-    int maxLength = 7;
-    public string answer;
 
     void Awake() 
     {
         IGenWord generateWord = new GenerateWord();
         
-        wordLength = Random.Range(minLength,maxLength);
+        wordLength = Random.Range(overallData.minLength,overallData.maxLength);
 
-        answer = WordGen(generateWord);
+        overallData.answer = WordGen(generateWord);
 
-        gridLayoutGroup.constraintCount = wordLength;
-        for(int gridrow = 0;gridrow < rowAmount;gridrow++)
-        {
-            for(int gridcollum = 0;gridcollum < wordLength;gridcollum++)
-            {
-                GameObject ansField = Instantiate<GameObject>(ansBox);
-                ansField.transform.SetParent(gridLayoutGroup.transform);
-            }
-        }
+        gridLayOut.BuildAnsField(wordLength);
+
+        overallData.guess = "";
     }
 
+    public void OnResetPress()
+    {
+        IGenWord generateWord = new GenerateWord();
+        
+        wordLength = Random.Range(overallData.minLength,overallData.maxLength);
+
+        overallData.answer = WordGen(generateWord);
+
+        gridLayOut.ResetField(wordLength);
+
+        overallData.guess = "";
+    } 
     string WordGen(IGenWord myGenWord)
     {
         return myGenWord.GeneratingWord(wordLength);
+    }
+
+    public void EnterKey()
+    {
+        Debug.Log("Enter");
     }
 }
