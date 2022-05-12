@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GridManager : MonoBehaviour
     public List<AnsField> ansFieldsList;
     public void BuildAnsField(int wordLength)
     {
+        GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
+        grid.constraintCount = wordLength;
         for(int gridrow = 0;gridrow < rowAmount;gridrow++)
         {
             for(int gridcollum = 0;gridcollum < wordLength;gridcollum++)
@@ -33,7 +36,17 @@ public class GridManager : MonoBehaviour
 
     public void GetInput()
     {
-        ansFieldsList[overallData.currentrow + (rowAmount * overallData.guess.Length)].GetLetter(overallData.currentGuess);
-        overallData.guess += overallData.currentGuess;
+        if(overallData.guess.Length < overallData.answer.Length)
+        {
+            if(overallData.currentGuess == "")
+            {
+                ansFieldsList[(overallData.answer.Length * overallData.currentrow) + overallData.guess.Length].GetLetter("#");
+            }else{ 
+                ansFieldsList[(overallData.answer.Length * overallData.currentrow) + overallData.guess.Length].GetLetter(overallData.currentGuess);
+                overallData.guess += overallData.currentGuess;
+            }
+        }else{
+            return;
+        }
     }
 }

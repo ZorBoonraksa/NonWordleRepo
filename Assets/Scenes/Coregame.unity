@@ -4453,6 +4453,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3271362360080799857, guid: 676c3b58e4a81284798591f7de539e82, type: 3}
+      propertyPath: m_StartAxis
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271362360080799857, guid: 676c3b58e4a81284798591f7de539e82, type: 3}
+      propertyPath: m_Constraint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3271362360080799859, guid: 676c3b58e4a81284798591f7de539e82, type: 3}
       propertyPath: m_Name
       value: GameArea
