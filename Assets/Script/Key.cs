@@ -13,6 +13,7 @@ public class Key : MonoBehaviour
         if(overallData.guess.Length < overallData.answer.Length)
         {
             overallData.guess += alphabet.text;
+            overallData.currentGuess = alphabet.text;
             if(overallData.guess.Length == overallData.answer.Length)
             {
                 overallData.isEqualLength = true;

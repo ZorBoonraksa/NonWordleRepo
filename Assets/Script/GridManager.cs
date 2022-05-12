@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject ansBox;
+    public OverallData overallData;
+    public AnsField ansField;
     int rowAmount = 6;
+    public List<AnsField> ansFieldsList;
     public void BuildAnsField(int wordLength)
     {
         for(int gridrow = 0;gridrow < rowAmount;gridrow++)
         {
             for(int gridcollum = 0;gridcollum < wordLength;gridcollum++)
             {
-                GameObject ansField = Instantiate(ansBox);
-                ansField.transform.SetParent(this.transform, false);
+                AnsField _ansField = Instantiate<AnsField>(ansField);
+                _ansField.transform.SetParent(this.transform, false);
+                ansFieldsList.Add(_ansField);
             }
         }
     }
@@ -24,6 +27,13 @@ public class GridManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        ansFieldsList.Clear();
         BuildAnsField(wordLength);
+    }
+
+    public void GetInput()
+    {
+        ansFieldsList[overallData.currentrow + (rowAmount * overallData.guess.Length)].GetLetter(overallData.currentGuess);
+        overallData.guess += overallData.currentGuess;
     }
 }

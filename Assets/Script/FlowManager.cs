@@ -20,6 +20,8 @@ public class FlowManager : MonoBehaviour
         gridLayOut.BuildAnsField(wordLength);
 
         overallData.guess = "";
+
+        overallData.currentrow = 0;
     }
 
     public void OnResetPress()
@@ -33,6 +35,8 @@ public class FlowManager : MonoBehaviour
         gridLayOut.ResetField(wordLength);
 
         overallData.guess = "";
+
+        overallData.currentrow = 0;
     } 
     string WordGen(IGenWord myGenWord)
     {
@@ -41,6 +45,12 @@ public class FlowManager : MonoBehaviour
 
     public void EnterKey()
     {
-        Debug.Log("Enter");
+        if(overallData.guess.Length == overallData.answer.Length)
+        {
+            overallData.guess = "";
+            overallData.currentrow++;
+        }else{
+            Debug.Log("Invalid Input");
+        }
     }
 }
