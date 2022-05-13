@@ -45,8 +45,9 @@ public class FlowManager : MonoBehaviour
 
     public void EnterKey()
     {
-        if(overallData.guess.Length == overallData.answer.Length)
+        if(overallData.isEqualLength)
         {
+            gridLayOut.CheckInput(wordLength);
             overallData.guess = "";
             overallData.currentrow++;
         }else{

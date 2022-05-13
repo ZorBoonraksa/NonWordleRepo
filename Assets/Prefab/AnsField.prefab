@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ansLetter: {fileID: 4053559213242783327}
+  fieldImage: {fileID: 8377899114207758639}
 --- !u!1 &2873576193766215585
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class Key : MonoBehaviour
         {
             //overallData.guess += alphabet.text;
             overallData.currentGuess = alphabet.text;
+            GameEvents.current.PressButton();
             if(overallData.guess.Length == overallData.answer.Length)
             {
                 overallData.isEqualLength = true;

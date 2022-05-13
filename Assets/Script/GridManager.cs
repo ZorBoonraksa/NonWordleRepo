@@ -9,6 +9,11 @@ public class GridManager : MonoBehaviour
     public AnsField ansField;
     int rowAmount = 6;
     public List<AnsField> ansFieldsList;
+
+    void Awake() 
+    {
+        GameEvents.current.onButtonPress += GetInput;    
+    }
     public void BuildAnsField(int wordLength)
     {
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
@@ -48,5 +53,18 @@ public class GridManager : MonoBehaviour
         }else{
             return;
         }
+    }
+
+    public void CheckInput(int wordLength)
+    {
+        for(int index = 0;index < wordLength;index++)
+        {
+            ansFieldsList[(overallData.answer.Length * overallData.currentrow) + index].CheckLetter(overallData.guess[index],overallData.answer,index);
+        }
+    }
+
+    void OnDestroy() 
+    {
+        GameEvents.current.onButtonPress -= GetInput;
     }
 }
