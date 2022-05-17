@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46fd651184970a4596bb325aec15a36, type: 3}
   m_Name: OverallData
   m_EditorClassIdentifier: 
-  answer: JUSDYD
+  answer: YENG
   guess: 
   minLength: 4
   maxLength: 7
   isEqualLength: 1
-  currentrow: 1
-  currentGuess: A
+  currentrow: 0
+  currentGuess: 

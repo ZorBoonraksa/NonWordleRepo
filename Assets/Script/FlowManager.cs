@@ -47,9 +47,10 @@ public class FlowManager : MonoBehaviour
     {
         if(overallData.isEqualLength)
         {
-            gridLayOut.CheckInput(wordLength);
+            gridLayOut.CheckInput(wordLength, overallData.answer);
+            gridLayOut.gridRow++;
+            gridLayOut.gridCollum = 0;
             overallData.guess = "";
-            overallData.currentrow++;
         }else{
             Debug.Log("Invalid Input");
         }

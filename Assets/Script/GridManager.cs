@@ -5,28 +5,30 @@ using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
-    public OverallData overallData;
     public AnsField ansField;
     int rowAmount = 6;
     public List<AnsField> ansFieldsList;
+    public int gridRow;
+    public int gridCollum;
 
     void Awake() 
     {
-        GameEvents.current.onButtonPress += GetInput;    
+        GameEvents.current.onButtonPress += GetInput;
     }
     public void BuildAnsField(int wordLength)
     {
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
         grid.constraintCount = wordLength;
-        for(int gridrow = 0;gridrow < rowAmount;gridrow++)
+        for(gridRow = 0;gridRow < rowAmount;gridRow++)
         {
-            for(int gridcollum = 0;gridcollum < wordLength;gridcollum++)
+            for(gridCollum = 0;gridCollum < wordLength;gridCollum++)
             {
                 AnsField _ansField = Instantiate<AnsField>(ansField);
                 _ansField.transform.SetParent(this.transform, false);
                 ansFieldsList.Add(_ansField);
             }
         }
+        gridCollum = gridRow = 0;
     }
 
     public void ResetField(int wordLength)
@@ -39,27 +41,36 @@ public class GridManager : MonoBehaviour
         BuildAnsField(wordLength);
     }
 
-    public void GetInput()
+    public void GetInput(string letter)
     {
-        if(overallData.guess.Length < overallData.answer.Length)
+        GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
+        if(letter == "del")
         {
-            if(overallData.currentGuess == "")
+            if(gridCollum > 0)
             {
-                ansFieldsList[(overallData.answer.Length * overallData.currentrow) + overallData.guess.Length].GetLetter("#");
-            }else{ 
-                ansFieldsList[(overallData.answer.Length * overallData.currentrow) + overallData.guess.Length].GetLetter(overallData.currentGuess);
-                overallData.guess += overallData.currentGuess;
+                gridCollum--;
             }
+            ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].ansLetter.text = "";
         }else{
-            return;
+            if(gridCollum < grid.constraintCount)
+            {
+                if(letter == "")
+                {
+                    ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].GetLetter("#");
+                    gridCollum++;
+                }else{ 
+                    ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].GetLetter(letter);
+                    gridCollum++;
+                }
+            }
         }
     }
 
-    public void CheckInput(int wordLength)
+    public void CheckInput(int wordLength, string ansWord)
     {
         for(int index = 0;index < wordLength;index++)
         {
-            ansFieldsList[(overallData.answer.Length * overallData.currentrow) + index].CheckLetter(overallData.guess[index],overallData.answer,index);
+            ansFieldsList[(wordLength * gridRow) + index].CheckLetter(ansWord,index);
         }
     }
 

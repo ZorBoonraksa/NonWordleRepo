@@ -11,12 +11,12 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event Action onButtonPress;
-    public void PressButton()
+    public event Action<string> onButtonPress;
+    public void PressButton(string letter)
     {
         if(onButtonPress != null)
         {
-            onButtonPress();
+            onButtonPress(letter);
         }
     }
 }

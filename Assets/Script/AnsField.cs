@@ -19,8 +19,9 @@ public class AnsField : MonoBehaviour
         ansLetter.text = letter;
     }
 
-    public void CheckLetter(char letter,string word,int index)
+    public void CheckLetter(string word,int index)
     {
+        char letter = char.Parse(ansLetter.text);
         for(int i = 0;i < word.Length;i++)
         {
             if(letter == word[i])
