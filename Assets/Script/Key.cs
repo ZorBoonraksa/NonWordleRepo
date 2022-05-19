@@ -6,6 +6,7 @@ using TMPro;
 
 public class Key : MonoBehaviour
 {
+    public UnityEngine.Events.UnityEvent<string> buttonPress;
     public TextMeshProUGUI alphabet;
     public OverallData overallData;
     public Action<string> keyPress;
@@ -14,28 +15,12 @@ public class Key : MonoBehaviour
     {
         this.keyPress = keyPress;
         this.alphabet.SetText(alphabet); 
-    }//เพิ่มเข้ามา
+    }
 
     public void KeyPress()
     {
-        this.keyPress?.Invoke(alphabet.text);
-        // GameEvents.current.PressButton(alphabet.text);
-        // if(alphabet.text != "del"){
-        //     if(overallData.guess.Length < overallData.answer.Length)
-        //     {
-        //         //overallData.guess += alphabet.text;
-        //         overallData.guess += alphabet.text;
-        //         if(overallData.guess.Length == overallData.answer.Length)
-        //         {
-        //             overallData.isEqualLength = true;
-        //         }
-        //     }
-        // }else{
-        //     if(overallData.guess.Length > 0)
-        //     {
-        //         string result = overallData.guess.Remove(overallData.guess.Length - 1);
-        //         overallData.guess = result;
-        //     }
-        // }
+        //this.keyPress?.Invoke(alphabet.text);
+        //GameEvents.current.PressButton(alphabet.text);
+        buttonPress?.Invoke(alphabet.text);
     }
 }

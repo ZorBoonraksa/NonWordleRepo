@@ -11,5 +11,4 @@ public class OverallData : ScriptableObject
     public int maxLength = 7;
     public bool isEqualLength;
     public int currentrow;
-    public string currentGuess;
 }

@@ -20,8 +20,6 @@ public class FlowManager : MonoBehaviour
         gridLayOut.BuildAnsField(wordLength);
 
         overallData.guess = "";
-
-        overallData.currentrow = 0;
     }
 
     public void OnResetPress()
@@ -35,12 +33,32 @@ public class FlowManager : MonoBehaviour
         gridLayOut.ResetField(wordLength);
 
         overallData.guess = "";
-
-        overallData.currentrow = 0;
     } 
     string WordGen(IGenWord myGenWord)
     {
         return myGenWord.GeneratingWord(wordLength);
+    }
+
+    public void GetKey(string guess)
+    {
+        Debug.Log($"Get key: {guess}");
+        if(guess != "del"){
+            if(overallData.guess.Length < overallData.answer.Length)
+            {
+                overallData.guess += guess;
+                gridLayOut.GetInput(guess);
+                if(overallData.guess.Length == overallData.answer.Length)
+                {
+                    overallData.isEqualLength = true;
+                }
+            }
+        }else{
+            if(overallData.guess.Length > 0)
+            {
+                string result = overallData.guess.Remove(overallData.guess.Length - 1);
+                overallData.guess = result;
+            }
+        }
     }
 
     public void EnterKey()

@@ -11,10 +11,10 @@ public class GridManager : MonoBehaviour
     public int gridRow;
     public int gridCollum;
 
-    void Awake() 
-    {
-        GameEvents.current.onButtonPress += GetInput;
-    }
+    // void Awake() 
+    // {
+    //     GameEvents.current.onButtonPress += GetInput;
+    // }
     public void BuildAnsField(int wordLength)
     {
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
@@ -43,6 +43,7 @@ public class GridManager : MonoBehaviour
 
     public void GetInput(string letter)
     {
+        Debug.Log($"Grid manager ansField list: {ansFieldsList.Count}");
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
         if(letter == "del")
         {
@@ -74,8 +75,8 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    void OnDestroy() 
-    {
-        GameEvents.current.onButtonPress -= GetInput;
-    }
+    // void OnDestroy() 
+    // {
+    //     GameEvents.current.onButtonPress -= GetInput;
+    // }
 }
