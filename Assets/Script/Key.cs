@@ -6,7 +6,6 @@ using TMPro;
 
 public class Key : MonoBehaviour
 {
-    public UnityEngine.Events.UnityEvent<string> buttonPress;
     public TextMeshProUGUI alphabet;
     public OverallData overallData;
     public Action<string> keyPress;
@@ -19,8 +18,6 @@ public class Key : MonoBehaviour
 
     public void KeyPress()
     {
-        //this.keyPress?.Invoke(alphabet.text);
-        //GameEvents.current.PressButton(alphabet.text);
-        buttonPress?.Invoke(alphabet.text);
+        this.keyPress?.Invoke(alphabet.text);
     }
 }

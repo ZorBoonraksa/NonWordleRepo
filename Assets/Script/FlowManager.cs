@@ -41,36 +41,31 @@ public class FlowManager : MonoBehaviour
 
     public void GetKey(string guess)
     {
-        Debug.Log($"Get key: {guess}");
-        if(guess != "del"){
+        //Debug.Log($"Get key: {guess}");
+        if(guess == "del"){
+            if(overallData.guess.Length > 0)
+            {
+                gridLayOut.GetInput(guess);
+                string result = overallData.guess.Remove(overallData.guess.Length - 1);
+                overallData.guess = result;
+            }
+        }else if(guess == "Enter"){
+            if(overallData.guess.Length == overallData.answer.Length)
+            {
+                gridLayOut.CheckInput(wordLength, overallData.answer);
+                gridLayOut.gridRow++;
+                gridLayOut.gridCollum = 0;
+                overallData.guess = "";
+            }else{
+                Debug.Log("Invalid Input");
+                return;
+            }
+        }else{
             if(overallData.guess.Length < overallData.answer.Length)
             {
                 overallData.guess += guess;
                 gridLayOut.GetInput(guess);
-                if(overallData.guess.Length == overallData.answer.Length)
-                {
-                    overallData.isEqualLength = true;
-                }
             }
-        }else{
-            if(overallData.guess.Length > 0)
-            {
-                string result = overallData.guess.Remove(overallData.guess.Length - 1);
-                overallData.guess = result;
-            }
-        }
-    }
-
-    public void EnterKey()
-    {
-        if(overallData.isEqualLength)
-        {
-            gridLayOut.CheckInput(wordLength, overallData.answer);
-            gridLayOut.gridRow++;
-            gridLayOut.gridCollum = 0;
-            overallData.guess = "";
-        }else{
-            Debug.Log("Invalid Input");
         }
     }
 }

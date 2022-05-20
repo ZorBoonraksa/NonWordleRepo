@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3271362360080799860}
   m_Layer: 5
   m_Name: GameArea
-  m_TagString: Untagged
+  m_TagString: GameArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,10 +96,10 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
-  m_StartAxis: 1
+  m_StartAxis: 0
   m_CellSize: {x: 110, y: 110}
   m_Spacing: {x: 12, y: 30}
-  m_Constraint: 2
+  m_Constraint: 1
   m_ConstraintCount: 6
 --- !u!114 &3271362360080799860
 MonoBehaviour:
@@ -113,5 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71978969048dfdb4abdc8dd3ea4c8d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overallData: {fileID: 11400000, guid: e83c0c503aceeab48956cb33a2c9bd0f, type: 2}
-  ansBox: {fileID: 6508316680233863768, guid: 2c7d680979b8a404f9caa850fe8b53f7, type: 3}
+  ansField: {fileID: 169596714979624135, guid: 2f3d98137006a2441b85e5321ce9b240, type: 3}
+  ansFieldLists:
+  - ansFields: []
+  - ansFields: []
+  - ansFields: []
+  - ansFields: []
+  - ansFields: []
+  - ansFields: []
+  gridRow: 0
+  gridCollum: 0

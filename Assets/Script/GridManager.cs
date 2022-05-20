@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class AnsFieldList
+{
+    public List<AnsField> ansFields = new List<AnsField>();
+}
+
 public class GridManager : MonoBehaviour
 {
     public AnsField ansField;
     int rowAmount = 6;
-    public List<AnsField> ansFieldsList;
+    public AnsFieldList[] ansFieldLists;
     public int gridRow;
     public int gridCollum;
 
-    // void Awake() 
-    // {
-    //     GameEvents.current.onButtonPress += GetInput;
-    // }
     public void BuildAnsField(int wordLength)
     {
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
@@ -25,7 +27,7 @@ public class GridManager : MonoBehaviour
             {
                 AnsField _ansField = Instantiate<AnsField>(ansField);
                 _ansField.transform.SetParent(this.transform, false);
-                ansFieldsList.Add(_ansField);
+                ansFieldLists[gridRow].ansFields.Add(_ansField);
             }
         }
         gridCollum = gridRow = 0;
@@ -37,13 +39,15 @@ public class GridManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        ansFieldsList.Clear();
+        for(int i = 0;i < rowAmount;i++)
+        {
+            ansFieldLists[i].ansFields.Clear();
+        }
         BuildAnsField(wordLength);
     }
 
     public void GetInput(string letter)
     {
-        Debug.Log($"Grid manager ansField list: {ansFieldsList.Count}");
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
         if(letter == "del")
         {
@@ -51,16 +55,16 @@ public class GridManager : MonoBehaviour
             {
                 gridCollum--;
             }
-            ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].ansLetter.text = "";
+            ansFieldLists[gridRow].ansFields[gridCollum].ansLetter.text = "";
         }else{
             if(gridCollum < grid.constraintCount)
             {
                 if(letter == "")
                 {
-                    ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].GetLetter("#");
+                    ansFieldLists[gridRow].ansFields[gridCollum].GetLetter("#");
                     gridCollum++;
                 }else{ 
-                    ansFieldsList[(grid.constraintCount * gridRow) + gridCollum].GetLetter(letter);
+                    ansFieldLists[gridRow].ansFields[gridCollum].GetLetter(letter);
                     gridCollum++;
                 }
             }
@@ -71,12 +75,7 @@ public class GridManager : MonoBehaviour
     {
         for(int index = 0;index < wordLength;index++)
         {
-            ansFieldsList[(wordLength * gridRow) + index].CheckLetter(ansWord,index);
+            ansFieldLists[gridRow].ansFields[index].CheckLetter(ansWord,index);
         }
     }
-
-    // void OnDestroy() 
-    // {
-    //     GameEvents.current.onButtonPress -= GetInput;
-    // }
 }
