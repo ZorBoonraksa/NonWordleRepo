@@ -9,6 +9,8 @@ public class Key : MonoBehaviour
     public TextMeshProUGUI alphabet;
     public OverallData overallData;
     public Action<string> keyPress;
+    public UnityEngine.UI.Image buttonImage;
+    public UnityEngine.UI.Button buttonKey;
 
     public void Setup(string alphabet,Action<string> keyPress)
     {

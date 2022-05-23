@@ -7,6 +7,7 @@ public class FlowManager : MonoBehaviour
 {
     public GridManager gridLayOut;
     public OverallData overallData;
+    public KeyBoard keyBoard;
     int wordLength;
 
     void Awake() 
@@ -33,6 +34,8 @@ public class FlowManager : MonoBehaviour
         gridLayOut.ResetField(wordLength);
 
         overallData.guess = "";
+
+        keyBoard.ResetInteractable();
     } 
     string WordGen(IGenWord myGenWord)
     {
@@ -45,14 +48,14 @@ public class FlowManager : MonoBehaviour
         if(guess == "del"){
             if(overallData.guess.Length > 0)
             {
-                gridLayOut.GetInput(guess);
+                gridLayOut.KeyInput(guess);
                 string result = overallData.guess.Remove(overallData.guess.Length - 1);
                 overallData.guess = result;
             }
         }else if(guess == "Enter"){
             if(overallData.guess.Length == overallData.answer.Length)
             {
-                gridLayOut.CheckInput(wordLength, overallData.answer);
+                Result();
                 gridLayOut.gridRow++;
                 gridLayOut.gridCollum = 0;
                 overallData.guess = "";
@@ -64,8 +67,41 @@ public class FlowManager : MonoBehaviour
             if(overallData.guess.Length < overallData.answer.Length)
             {
                 overallData.guess += guess;
-                gridLayOut.GetInput(guess);
+                gridLayOut.KeyInput(guess);
             }
         }
+    }
+
+    void Result()
+    {
+        for(int i = 0;i < wordLength;i++)
+        {
+            gridLayOut.ShowResult(i,CheckLetter(overallData.answer,overallData.guess[i],i));
+            keyBoard.OnInput(char.ToString(overallData.guess[i]),CheckLetter(overallData.answer,overallData.guess[i],i));
+        }
+    }
+
+    public int CheckLetter(string word,char letter,int index)
+    {
+        int result = 3;
+        bool isCorrect = false;
+        for(int i = 0;i < word.Length;i++)
+        {
+            if(letter == word[i])
+            {
+                if(index == i)
+                {
+                    isCorrect = true;
+                    result = 1;
+                }
+                if(isCorrect == false)
+                {
+                    result = 2;
+                }
+            }else{
+                continue;
+            }
+        }
+        return result;        
     }
 }

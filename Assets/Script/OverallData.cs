@@ -9,6 +9,4 @@ public class OverallData : ScriptableObject
     public string guess;
     public int minLength = 4;
     public int maxLength = 7;
-    public bool isEqualLength;
-    public int currentrow;
 }

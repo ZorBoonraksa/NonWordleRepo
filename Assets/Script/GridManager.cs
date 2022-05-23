@@ -46,7 +46,7 @@ public class GridManager : MonoBehaviour
         BuildAnsField(wordLength);
     }
 
-    public void GetInput(string letter)
+    public void KeyInput(string letter)
     {
         GridLayoutGroup grid = GetComponent<GridLayoutGroup>();
         if(letter == "del")
@@ -71,11 +71,8 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void CheckInput(int wordLength, string ansWord)
+    public void ShowResult(int index, int result)
     {
-        for(int index = 0;index < wordLength;index++)
-        {
-            ansFieldLists[gridRow].ansFields[index].CheckLetter(ansWord,index);
-        }
+        ansFieldLists[gridRow].ansFields[index].ChangeColor(result);
     }
 }

@@ -4761,6 +4761,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3357834472096346748, guid: 4b2f56d9d35e85c4c988b8b6ecce6db5, type: 3}
+      propertyPath: keyBoard
+      value: 
+      objectReference: {fileID: 874490748}
+    - target: {fileID: 3357834472096346748, guid: 4b2f56d9d35e85c4c988b8b6ecce6db5, type: 3}
       propertyPath: gridLayOut
       value: 
       objectReference: {fileID: 798802046}

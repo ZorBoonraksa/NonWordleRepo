@@ -12,7 +12,7 @@ public class GameAreaEditor : Editor
 
         if(GUILayout.Button("Test GetInput"))
         {
-            ((GridManager)target).GetInput("");
+            ((GridManager)target).KeyInput("");
         }
     }
 }
