@@ -7,6 +7,4 @@ public class OverallData : ScriptableObject
 {
     public string answer;
     public string guess;
-    public int minLength = 4;
-    public int maxLength = 7;
 }

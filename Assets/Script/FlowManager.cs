@@ -12,11 +12,9 @@ public class FlowManager : MonoBehaviour
 
     void Awake() 
     {
-        IGenWord generateWord = new GenerateWord();
-        
-        wordLength = Random.Range(overallData.minLength,overallData.maxLength);
+        overallData.answer = CoreGame.GenWord();
 
-        overallData.answer = WordGen(generateWord);
+        wordLength = overallData.answer.Length;
 
         gridLayOut.BuildAnsField(wordLength);
 
@@ -25,11 +23,9 @@ public class FlowManager : MonoBehaviour
 
     public void OnResetPress()
     {
-        IGenWord generateWord = new GenerateWord();
-        
-        wordLength = Random.Range(overallData.minLength,overallData.maxLength);
+        overallData.answer = CoreGame.GenWord();
 
-        overallData.answer = WordGen(generateWord);
+        wordLength = overallData.answer.Length;
 
         gridLayOut.ResetField(wordLength);
 
@@ -37,10 +33,6 @@ public class FlowManager : MonoBehaviour
 
         keyBoard.ResetInteractable();
     } 
-    string WordGen(IGenWord myGenWord)
-    {
-        return myGenWord.GeneratingWord(wordLength);
-    }
 
     public void GetKey(string guess)
     {
@@ -56,9 +48,6 @@ public class FlowManager : MonoBehaviour
             if(overallData.guess.Length == overallData.answer.Length)
             {
                 Result();
-                gridLayOut.gridRow++;
-                gridLayOut.gridCollum = 0;
-                overallData.guess = "";
             }else{
                 Debug.Log("Invalid Input");
                 return;
@@ -76,32 +65,21 @@ public class FlowManager : MonoBehaviour
     {
         for(int i = 0;i < wordLength;i++)
         {
-            gridLayOut.ShowResult(i,CheckLetter(overallData.answer,overallData.guess[i],i));
-            keyBoard.OnInput(char.ToString(overallData.guess[i]),CheckLetter(overallData.answer,overallData.guess[i],i));
+            gridLayOut.ShowResult(i,CoreGame.CheckLetter(overallData.guess[i],i));
+            keyBoard.OnInput(char.ToString(overallData.guess[i]),CoreGame.CheckLetter(overallData.guess[i],i));
         }
-    }
-
-    public int CheckLetter(string word,char letter,int index)
-    {
-        int result = 3;
-        bool isCorrect = false;
-        for(int i = 0;i < word.Length;i++)
+        if(overallData.guess != overallData.answer)
         {
-            if(letter == word[i])
+            if(gridLayOut.gridRow < 5)
             {
-                if(index == i)
-                {
-                    isCorrect = true;
-                    result = 1;
-                }
-                if(isCorrect == false)
-                {
-                    result = 2;
-                }
+                gridLayOut.gridRow++;
+                gridLayOut.gridCollum = 0;
+                overallData.guess = "";
             }else{
-                continue;
+                Debug.Log("Nice try,the Answer is " + overallData.answer);
             }
+        }else{
+            Debug.Log("Win");
         }
-        return result;        
     }
 }
