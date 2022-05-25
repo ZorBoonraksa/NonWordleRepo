@@ -71,7 +71,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void ShowResult(int index, int result)
+    public void ShowResult(int index, CheckingState result)
     {
         ansFieldLists[gridRow].ansFields[index].ChangeColor(result);
     }

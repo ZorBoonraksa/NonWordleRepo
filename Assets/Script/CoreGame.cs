@@ -9,8 +9,14 @@ public static class CoreGame
     static int minLength = 4;
     static int maxLength = 7;
     static Dictionary<char,List<int>> generatedWord = new Dictionary<char, List<int>>();
+    public static List<float> progress = new List<float>();
     public static string GenWord()
     {
+        progress.Clear();
+        for(int i = 0;i < 6;i++)
+        {
+            progress.Add(0f);
+        }
         generatedWord.Clear();
         IGenWord genWord = new GenerateWord();
         wordLength = Random.Range(minLength,maxLength);
@@ -31,18 +37,26 @@ public static class CoreGame
         return myGenWord.GeneratingWord(wordLength);
     }
 
-    public static int CheckLetter(char letter,int index)
+    public static CheckingState CheckLetter(char letter,int index,int row,bool doProgressing)
     {
-        int result;
+        CheckingState result;
         if(!generatedWord.ContainsKey(letter))
         {
-            result = 3;
+            result = CheckingState.Wrong;
         }else{
             if(generatedWord[letter].Contains(index))
             {
-                result = 1;
+                result = CheckingState.Correct;
+                if(doProgressing)
+                {
+                    progress[row] += 100.0f / wordLength;
+                }
             }else{
-                result = 2;
+                result = CheckingState.WrongIndex;
+                if(doProgressing)
+                {
+                    progress[row] += 100.0f / (wordLength * 2);
+                }
             }
         }
         return result;

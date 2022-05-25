@@ -45,17 +45,17 @@ public class KeyBoard : MonoBehaviour
         }
     }
 
-    public void OnInput(string key,int result)
+    public void OnInput(string key,CheckingState result)
     {
         switch (result)
         {
-            case 1:
+            case CheckingState.Correct:
                 keyMapping[key].buttonImage.color = new Color(0.6745098f,0.8392157f,0.2117647f,1);
                 break;
-            case 2:
+            case CheckingState.WrongIndex:
                 keyMapping[key].buttonImage.color = new Color(0,0,1,1);
                 break;
-            case 3:
+            case CheckingState.Wrong:
                 keyMapping[key].buttonKey.interactable = false;
                 keyMapping[key].buttonImage.color = new Color(0.6037736f,0.5718761f,0.5718761f,1);
                 break;

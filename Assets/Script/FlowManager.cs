@@ -8,30 +8,37 @@ public class FlowManager : MonoBehaviour
     public GridManager gridLayOut;
     public OverallData overallData;
     public KeyBoard keyBoard;
+    public ResultPopup result;
     int wordLength;
 
     void Awake() 
     {
-        overallData.answer = CoreGame.GenWord();
-
-        wordLength = overallData.answer.Length;
+        StartState();
 
         gridLayOut.BuildAnsField(wordLength);
-
-        overallData.guess = "";
     }
 
     public void OnResetPress()
     {
+        StartState();
+
+        gridLayOut.ResetField(wordLength);
+
+        keyBoard.ResetInteractable();
+    }
+
+    void StartState()
+    {
+        
+        result.gameObject.SetActive(false);
+
         overallData.answer = CoreGame.GenWord();
 
         wordLength = overallData.answer.Length;
 
-        gridLayOut.ResetField(wordLength);
-
         overallData.guess = "";
 
-        keyBoard.ResetInteractable();
+        result.ResetResult();
     } 
 
     public void GetKey(string guess)
@@ -65,8 +72,9 @@ public class FlowManager : MonoBehaviour
     {
         for(int i = 0;i < wordLength;i++)
         {
-            gridLayOut.ShowResult(i,CoreGame.CheckLetter(overallData.guess[i],i));
-            keyBoard.OnInput(char.ToString(overallData.guess[i]),CoreGame.CheckLetter(overallData.guess[i],i));
+            gridLayOut.ShowResult(i,CoreGame.CheckLetter(overallData.guess[i],i,gridLayOut.gridRow,true));
+            keyBoard.OnInput(char.ToString(overallData.guess[i]),CoreGame.CheckLetter(overallData.guess[i],i,gridLayOut.gridRow,false));
+            result.SetResult(gridLayOut.gridRow,CoreGame.progress[gridLayOut.gridRow]);
         }
         if(overallData.guess != overallData.answer)
         {
@@ -76,10 +84,14 @@ public class FlowManager : MonoBehaviour
                 gridLayOut.gridCollum = 0;
                 overallData.guess = "";
             }else{
-                Debug.Log("Nice try,the Answer is " + overallData.answer);
+                result.resultText.text = "Try Again";
+                result.answerText.text = overallData.answer;
+                result.gameObject.SetActive(true);
             }
         }else{
-            Debug.Log("Win");
+            result.resultText.text = "You Win";
+            result.answerText.text = overallData.answer;
+            result.gameObject.SetActive(true);
         }
     }
 }
