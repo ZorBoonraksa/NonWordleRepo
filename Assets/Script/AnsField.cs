@@ -8,7 +8,7 @@ public class AnsField : MonoBehaviour
 {
     public TextMeshProUGUI ansLetter;
     public Image fieldImage;
-
+    
     void Awake() 
     {
         ansLetter.text = ""; 
